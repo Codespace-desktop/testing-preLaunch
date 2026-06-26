@@ -601,6 +601,7 @@
   // Download click feedback
   document.getElementById('downloadBtn').addEventListener('click', async e => {
     e.preventDefault();
+    window.location.href = event.currentTarget.href;
     const btn = document.getElementById('downloadBtn');
     const orig = btn.innerHTML;
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Downloading...';
