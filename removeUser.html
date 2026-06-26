@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+</html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove User</title>
+</head>
+<body>
+    <h1 id="heading" >Unsubscribing <br> <h4 id="subHeading">Server is processing your request...</h4></h1>
+</body>
+<script type="text/javascript">
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('email');
+
+    (async()=>{
+    const response = await fetch("https://codespace-worker.codespacesupport.workers.dev",{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            Body: userId,
+            DataType: "unsubscribe"
+        })
+      }).catch(err => {
+        alert("There was an error while unsubscribing. Please try again later.");
+        console.error(err);
+      });
+
+    const data = await response.json();
+      if(data.result == "success"){
+            document.getElementById("heading").innerHTML = "You have been unsubscribed successfully.";
+            document.getElementById("subHeading").innerHTML = "You will no longer receive any emails from us.";
+      }else if (data.result == "unsuccess"){
+          alert("There was an error while unsubscribing. Please try again later.");
+      }
+  })();
+</script>
+</html>
